@@ -90,6 +90,9 @@ class InstallRequirement(object):
             if not os.path.isfile(path):
                 logger.warn('Requirement %r looks like a filename, but the file does not exist', name)
             link = Link(path_to_url(name))
+        elif "#" in name:
+            logger.warn("Requirement %r has fragment options which will be ignored in favor of PyPI's metadata",
+                        name)
 
         # If the line has an egg= definition, but isn't editable, pull the requirement out.
         # Otherwise, assume the name is the req for the non URL/path/archive case.
